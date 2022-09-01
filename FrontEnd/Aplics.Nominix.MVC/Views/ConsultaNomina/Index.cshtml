@@ -1,0 +1,242 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Nómina</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Consulta de Nómina
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div claas="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form onsubmit="FiltrarDatos(event)" id="frmConsultaNomina">
+                <div class="row">
+                    <!-- primer col -->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectCompaniaExcel">Compañia</label>
+                            <select class="form-control form-control-md" id="selectCompaniaExcel" name="selectCompaniaExcel">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectTpNominaExcel">Tipo de nómina </label>
+                            <select class="form-control form-control-md" id="selectTpNominaExcel" name="selectTpNominaExcel">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtAnoExcel">Año</label>
+                            <input type="text" class="form-control" maxlength="4" id="txtAnoExcel" name="txtAnoExcel" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtNumeroNominaExcel">No.Nomina</label>
+                            <input type="text" class="form-control" id="txtNumeroNominaExcel" name="txtNumeroNominaExcel" />
+                        </div>
+                        <div class="form-group">
+                            <label for="FecInicial">Fecha Inicial </label>
+                            <input type="date"
+                                   class="form-control"
+                                   id="FecInicial" />
+                        </div>
+                        <div class="form-group">
+                            <label for="FecFinal">Fecha Final</label>
+                            <input type="date"
+                                   class="form-control"
+                                   id="FecFinal" />
+                        </div>
+                        <div class="form-group">
+                            <label for="FecPago">Fecha de Pago</label>
+                            <input type="date"
+                                   class="form-control"
+                                   id="FecPago" />
+                        </div>
+                        <div class="form-group">
+                            <label for="selectEstatusExcel">Estatus</label>
+                            <select class="form-control form-control-md" id="selectEstatusExcel" name="selectEstatusExcel">
+                                <option selected value="" disabled> --Seleccione--</option>
+                                <option value="A">Abierta</option>
+                                <option value="C">Cerrada</option>
+                                <option value="1">Calculando </option>
+                                <option value="5">Aprobada </option>
+                                <option value="8">Cerrando </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <nav class="navbar navbar-expand-lg navbar-light ">
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Procesos
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Excepciones</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Cálculo</a>
+                                            <a class="dropdown-item" href="#">Recálculo por empleado</a>
+                                            <a class="dropdown-item" href="#">Recálculo con selección</a>
+                                            <a class="dropdown-item" href="#">Avance proceso</a>
+                                            <a class="dropdown-item" href="#">Mensajes</a>
+                                            <a class="dropdown-item" onclick="ConsultarNomina(event)">Consulta</a>
+                                            <a class="dropdown-item" href="#">Aprobacion</a>
+                                            <a class="dropdown-item" href="#">Cierre</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Reortes
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Por empleado</a>
+                                            <a class="dropdown-item" href="#">Por concepto</a>
+                                            <a class="dropdown-item" href="#">Resumen por concepto</a>
+                                            <a class="dropdown-item" href="#">Por conceptos de costos</a>
+                                            <a class="dropdown-item" href="#">Netos</a>
+                                            <a class="dropdown-item" href="#">Depósitos</a>
+                                            <a class="dropdown-item" href="#">Recibos</a>
+                                            <a class="dropdown-item" href="#">Por Columnas</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Interfaces
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Depositos</a>
+                                            <a class="dropdown-item" href="#">Póliza</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <partial name="_Consulta.cshtml" />
+
+</div>
+<div class="modal " id="mdlDetalle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <h4 class="modal-title">Detalle Consulta Nómina Empleado</h4>
+                <button type="button" onclick="cancelar()" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="DetalleNomina">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="selectCompaniaExcel">Compañia</label>
+                                <select class="form-control form-control-md" id="selectCompaniaExcel" name="selectCompaniaExcel">
+                                    <option selected value="" disabled> --Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="selectTpNominaExcel">Tipo de nómina </label>
+                                <select class="form-control form-control-md" id="selectTpNominaExcel" name="selectTpNominaExcel">
+                                    <option selected value="" disabled> --Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtAnoExcel">Año</label>
+                                <input type="text" class="form-control" maxlength="4" id="txtAnoExcel" name="txtAnoExcel" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="txtNumeroNominaExcel">No.Nomina</label>
+                                <input type="text" class="form-control" id="txtNumeroNominaExcel" name="txtNumeroNominaExcel" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="txtNoEmpleado">No.Empleado</label>
+                                <input type="text" class="form-control" id="txtNoEmpleado" name="txtNoEmpleado" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="txtNombre">No.Nomina</label>
+                                <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="modal-body table-responsive">
+                                <table id="tblDetalleNomina" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                    <td class="bg-grays-active color-palette"></td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong id="abiertoEnTiempo"></strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong>Total percepciones y deducciones</strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong id="percepciones"></strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong id="deducciones"></strong>
+                                    </td>
+                                  
+                                    </tr>
+                                    <tr>
+                                    <td class="bg-grays-active color-palette"></td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong id="abiertoEnTiempo"></strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong></strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong >Neto</strong>
+                                    </td>
+                                    <td class="bg-teals-active color-palette text-center">
+                                        <strong id="neto"></strong>
+                                    </td>
+                                   
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button onclick="cancelar(this)" type="button" class="btn btn-warning btn-outline" data-dismiss="modal" id="cerrar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script src="~/js/ConsultaNomina/Index.js"></script>
+}

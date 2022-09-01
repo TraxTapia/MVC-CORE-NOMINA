@@ -1,0 +1,42 @@
+﻿@model Aplics.Nominix.DTOS.dto_Plazas
+
+@using (Html.BeginForm("BorrarPlaza", "Organigrama", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="col-md-4">
+        <div class="ibox ">
+            @Html.AntiForgeryToken()
+            <div class="ibox-title">
+                <h5>Borrar Plaza</h5>
+            </div>
+            <div>
+                <div class="ibox-content no-padding border-left-right">
+                    <img alt="image" class="img-fluid" src="img/profile_big.jpg">
+                </div>
+                <div class="ibox-content profile-content">
+                    <h4><strong>@Model.DescripcionPlaza </strong></h4>
+                    <h5>
+                        Acerca de la Plaza
+                    </h5>
+                    <p><i class="fa fa-map-marker"></i>@Html.DisplayNameFor(model => model.Compañia)</p>
+                    <p><i class="fa fa-map-marker"></i>Departamento: @Model.Departamento</p>
+                    <p><i class="fa fa-map-marker"></i>Puesto: @Model.Puesto</p>
+                    <p><i class="fa fa-map-marker"></i>Localidad: @Model.Localidad</p>
+                    <p><i class="fa fa-map-marker"></i>Plazas Autorizadas: @Model.Autorizadas</p>
+                    <p><i class="fa fa-map-marker"></i>Plazas Ocupadas: @Model.Ocupadas</p>
+                    <p><i class="fa fa-map-marker"></i>Plazas Eventuales Autorizadas: @Model.EventualesAutorizadas</p>
+                    <p><i class="fa fa-map-marker"></i>Plazas Eventuales Ocupadas: @Model.EventualesOcupadas</p>
+                    <p><i class="fa fa-map-marker"></i>Externo: @Model.Externo</p>
+                    <div class="user-button">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>Borrar Plaza</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+

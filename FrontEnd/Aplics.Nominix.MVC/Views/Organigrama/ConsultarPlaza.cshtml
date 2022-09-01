@@ -1,0 +1,80 @@
+﻿@model Aplics.Nominix.DTOS.dto_Plazas
+
+<div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Nomina</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Modificar Plaza
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+
+                    @using (Html.BeginForm("ConsultarPlaza", "Organigrama", FormMethod.Post, new { @id = "form1" }))
+                    { 
+                      <div class="card">
+                          <div class="card-header">
+                              <h4 class="text-center">Datos de la Plaza Superior</h4>
+                          </div>
+
+                          @Html.AntiForgeryToken()
+
+                          <div class="card-body">
+                              <div class="container">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p>Plaza: <b>@Model.CodigoSup</b></p>
+                                          <p>Compañia:<b>@Model.CompañiaSup</b></p>
+                                          <p>Localidad:<b>@Model.LocalidadSup</b></p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <p>Direccion: <b>@Model.DireccionSup</b></p>
+                                          <p>Departamento: <b>@Model.DepartamentoSup</b></p>
+                                          <p>Puesto: <b>@Model.PuestoSup</b></p>
+                                          <p>Externo Sup: <b>@Model.ExternoSup</b></p>
+                                      </div>
+                                  </div>
+                                  <div class="card-header">
+                                      <h4 class="text-center">Datos de la Plaza</h4>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p>Plaza: <b>@Model.Codigo</b></p>
+                                          <p>Compañia:<b>@Model.Compañia</b></p>
+                                          <p>Localidad:<b>@Model.Localidad</b></p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <p>Direccion: <b>@Model.Direccion</b></p>
+                                          <p>Departamento: <b>@Model.Departamento</b></p>
+                                          <p>Puesto: <b>@Model.Puesto</b></p>
+                                          <p>Externo Sup: <b>@Model.Externo</b></p>
+                                      </div>
+                                  </div>
+                                 
+                                   <div class="card-header">
+                                      <h4 class="text-center">Empleados</h4>
+                                  </div>
+
+                                  @Html.Partial("_EmpleadosPlazas", Model.Empleados)
+
+                              </div>
+                          </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,186 @@
+﻿////let selectData = '<select class="calcular" name="Calcular"><option disabled selected>Seleccione un documento</option><option value="S">Si</option><option value="N">No</option><option value="I">Segun Importe</option></select>';
+////let resultData = [
+////    [1, '0231','Empleado 1','concepto 1','concepto 1' ,12,123.55, selectData],
+////    [2, '1223','Empleado 2','concepto 1','concepto 1' ,12,123.55, selectData ],
+////    [3, '0033','Empleado 3','concepto 1','concepto 1' ,12,123.55, selectData ]
+////];
+let EnumTipoBusqueda = {
+    Nomina: 1,
+    NominaEmpleado: 2
+};
+$(document).ready(function () {
+ //     $('#tblNomina').DataTable({
+ //       dom: 'Blfrtip',
+ //       buttons: ['csv', 'excel', 'pdf'],
+ //       destroy: true,
+ //       responsive: true,
+ //       lengthMenu: [10, 15, 20],
+ //       language: {
+ //           "decimal": "",
+ //           "emptyTable": "No hay información",
+ //           "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+ //           "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+ //           "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+ //           "infoPostFix": "",
+ //           "thousands": ",",
+ //           "lengthMenu": "Mostrar _MENU_ Entradas",
+ //           "loadingRecords": "Cargando...",
+ //           "processing": "Procesando...",
+ //           "search": "Buscar en resultado:",
+ //           "zeroRecords": "Sin resultados encontrados",
+ //           "paginate": {
+ //               "first": "Primero",
+ //               "last": "Ultimo",
+ //               "next": "Siguiente",
+ //               "previous": "Anterior"
+ //           }
+ //       }
+ //});
+})
+
+function frmFiltrosNomina() {
+    let _Compania = document.getElementById('selectCompaniaFiltro').value;
+    let _TipoNomina = document.getElementById('selectTpNominaFiltro').value;
+    let _Estatus = document.getElementById('selectEstatusFiltro').value;
+    let _FInicial = document.getElementById('txtFInical').value;
+    let _FFinal = document.getElementById('txtFFinal').value;
+    let _Ano = document.getElementById('txtAno').value;
+    let _EstatusEmpleado = document.getElementById('selectEstatusEmpleadoFiltro').value;
+    let _Nombre = document.getElementById('txtNombre').value;
+    let _TipoBusqueda = document.getElementById('selectTipoBusqueda').value;
+    let _NumeroNomina = document.getElementById('txtNumeroNomina').value;
+    if (_TipoBusqueda === "1") {
+        let _Req = {
+            Compania: _Compania,
+            TipoNomina: _TipoNomina,
+            Ano: _Ano,
+            NumeroNomina: _NumeroNomina,
+            Estatus: _Estatus,
+            FInicio: _FInicial,
+            FFin: _FFinal,
+            TipoBusqueda: EnumTipoBusqueda.Nomina
+        }
+        $('#tblNomina').DataTable({
+            'ajax': {
+                'url': '/EmpleadosNomina/BuscarNomina',
+                'type': 'POST',
+                'data': _Req,
+                'datatype': 'json',
+                "dataSrc": "data",
+            },
+            dom: 'Blfrtip',
+            buttons: ['csv', 'excel', 'pdf'],
+            destroy: true,
+            responsive: true,
+            lengthMenu: [10, 15, 20],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar en resultado:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "columns":
+                [
+                    {
+                        "data": "Id",
+                        "title": "Id"
+                    },
+                    {
+                        "data": "Empleado",
+                        "title": "Empleado"
+                    },
+                    {
+                        "data": "Nombre",
+                        "title": "Nombre"
+                    },
+                    {
+                        "data": "Concepto",
+                        "title": "Concepto"
+                    },
+                    {
+                        "data": "DescConcepto",
+                        "title": "DescConcepto"
+                    },
+                    {
+                        "data": "Unidades",
+                        "title": "Unidades"
+                    },
+                    {
+                        "data": "Importe",
+                        "title": "Importe"
+                    },
+                ]
+        });
+
+    } else {
+        let _Req = {
+            Nombre: _Nombre,
+            Estatus: _EstatusEmpleado,
+            TipoBusqueda: EnumTipoBusqueda.NominaEmpleado
+        }
+        $('#tblEmpleado').DataTable({
+            'ajax': {
+                'url': '/EmpleadosNomina/BuscarNominaEmpleado',
+                'type': 'POST',
+                'data': _Req,
+                'datatype': 'json',
+                "dataSrc": "data",
+            },
+            dom: 'Blfrtip',
+            buttons: ['csv', 'excel', 'pdf'],
+            destroy: true,
+            responsive: true,
+            lengthMenu: [10, 15, 20],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar en resultado:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            "columns":
+                [
+                    {
+                        "data": "Codigo",
+                        "title": "Codigo"
+                    },
+                    {
+                        "data": "Nombre",
+                        "title": "Nombre"
+                    },
+                    {
+                        "data": "Estatus",
+                        "title": "Estatus"
+                    }
+                ]
+        });
+    }
+   
+}

@@ -1,0 +1,126 @@
+﻿@{
+    Layout = "_Layout";
+    var _ListCategory = new List<SelectListItem>();
+    if (ViewBag.Select != null)
+    {
+        _ListCategory = (List<SelectListItem>)ViewBag.Select;
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Nomina</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Actualizar Empleado
+                            <input type="email" class="form-control" value="@ViewBag.Code" id="txtCodEmpleadoSearchEdit" />
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="text-center">Actualizar Empleado</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <form id="frmEditEmpleado">
+                                                <div class="row d-flex justify-content-end align-items-center">
+                                                    <button onclick="$('#frmEditEmpleado').submit()" type="button" class="btn btn-outline-success">Guardar</button>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="txtNombreEdit">Nombre</label>
+                                                            <input type="email" class="form-control" id="txtNombreEdit" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="txtApellidoPaternoEdit">Apellido Paterno</label>
+                                                            <input type="email" class="form-control" id="txtApellidoPaternoEdit" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="txtApMaternoEdit">Apellido Materno</label>
+                                                            <input type="email" class="form-control" id="txtApMaternoEdit" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Código Empresa</label>
+                                                            <input type="email" class="form-control" id="txtNombre" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Posición</label>
+                                                            <input type="email" class="form-control" id="txtApellidoPaterno" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect1">Estatus</label>
+                                                            <select class="form-control form-control-md">
+                                                                <option selected disabled>--Selecciona--</option>
+                                                                <option value="A">Activo</option>
+                                                                <option value="B">Baja</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <img style="width: 150px !important"
+                                                             class="rounded-circle w-100"
+                                                             src="data:image/jpeg;base64,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"
+                                                             alt="..." />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ubicación</button>
+                                                            </li>
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Fechas y Sueldos</button>
+                                                            </li>
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Fiscales y Personales</button>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content" id="myTabContent">
+                                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> <partial name="_UbicacionVP.cshtml" /></div>
+                                                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> <partial name="_FiscalesPersonalesVP.cshtml" /></div>
+                                                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> <partial name="_FechasSueldosVP.cshtml" /></div>
+                                                        </div>                                                       
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+<script src="~/js/Empleados/Index.js"></script>
+<script src="~/js/Empleados/Edit.js"></script>
+    }

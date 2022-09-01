@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5169dc6f-65f2-4c50-b81c-89db720df25e": {
+      "ProjectGuid": "5169dc6f-65f2-4c50-b81c-89db720df25e",
+      "DisplayName": "Aplics.Nominix.MVC",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
+    },
+    "a3c4efe4-ca27-4357-bb1c-89771d471a0d": {
+      "ProjectGuid": "a3c4efe4-ca27-4357-bb1c-89771d471a0d",
+      "DisplayName": "Aplics.Nominix.DTOS",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

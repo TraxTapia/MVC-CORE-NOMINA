@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Nómina</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Cargar Excel
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <form  id="frmUpload">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Cargar Excel</label>
+                    <input type="file" id="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <div class="form-group ">
+                    <button class="btn btn-success btn-outline" onclick="UploadFiles(); return false;" type="button">Subir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+<script src="~/js/ExcepcionesExcel/Index.js"></script>
+}

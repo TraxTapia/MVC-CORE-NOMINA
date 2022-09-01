@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Clasificación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Nomina</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Consulta de Finiquitos
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <form onsubmit="ConsultarFiniquitos(event)" id="frmFiniquito">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectCompaniaFiltro">Compañia</label>
+                            <select class="form-control form-control-md" id="selectCompaniaFiltro" name="selectCompaniaFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectLocalidadFiltro">Localidad</label>
+                            <select class="form-control form-control-md" id="selectLocalidadFiltro" name="selectLocalidadFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtFecFiniquito">Fecha Finiquito</label>
+                            <input type="date" class="form-control" id="txtFecFiniquito" name="txtFecFiniquito" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtNombreEmpleadoFiltro">Nombre Empleado</label>
+                            <input type="text" class="form-control" id="txtNombreEmpleadoFiltro" placeholder="Nombre" name="txtNombreEmpleadoFiltro" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtNoEmpleadoFiltro">No. Empleado</label>
+                            <input type="text" class="form-control" id="txtNoEmpleadoFiltro" placeholder="No. Empleado" name="txtNoEmpleadoFiltro" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectEstatusFiltro">Estatus</label>
+                            <select class="form-control form-control-md" id="selectEstatusFiltro" name="selectEstatusFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                                <option value="A"> Activo</option>
+                                <option value="B"> Baja</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text ">
+                    <button class="btn btn-info" type="submit">Filtrar</button>
+                    <button class="btn btn-success" id="btnNuevo" type="button" onclick="OpenModalNuevoEmpleado(this,'#mdlNuevoFiniquito')">Nuevo</button>
+                </div>
+                <div class="form-group text ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="modal-body table-responsive">
+            <div class="col-md-12">
+                <table id="tblFiniquito" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>DocEntry</th>
+                            <th>Empleado</th>
+                            <th>Nombre</th>
+                            <th>Fecha Finiquito</th>
+                            <th>N. Sim</th>
+                            <th>Tipo Nom</th>
+                            <th>Descripción Tipo Nom</th>
+                            <th>Neto a pagar</th>
+                            <th>Estatus Empleado</th>
+                            <th>CIA</th>
+                            <th>Descripcion CIA</th>
+                            <th>Localidad</th>
+                            <th>Descripción Localidad</th>
+                            <th>Estatus Finiquito</th>
+                            <th>%Sim</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    @*Modal Registro*@
+    <div class="modal " id="mdlNuevoFiniquito" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <div class="col-md-6" id="tAlta"></div>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <partial name="_FiniquitoNuevo.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @*modal Actualizar*@
+    <div class="modal " id="mdlActualizarFiniquito" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                   <div class="col-md-6" id="Tcambio"></div>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <partial name="_FiniquitoUpdate.cshtml" />
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+@section scripts {
+<script src="~/js/Finiquito/Index.js"></script>
+
+}

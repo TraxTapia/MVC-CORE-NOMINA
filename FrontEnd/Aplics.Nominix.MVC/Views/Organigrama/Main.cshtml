@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Main";
+}
+
+@section Styles{
+
+    @*ESTILO PARA ORGCHART*@
+    <style>
+        #chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        .classCard {
+            background-color: aquamarine;
+            border-radius: 12px;
+            font-family: 'Lucida Console',Courier New, Courier, monospace;
+            font-size: 8px;
+            width: 100px;
+        }
+    </style>
+
+    <link href="~/css/StyleSheet.css" rel="stylesheet">
+    <link href="~/css/context-menu.css" rel="stylesheet" />
+}
+
+
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="context-menu-container" id="context-menu-items">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Re-enable item 2</li>
+                    <li class="warning">Warning Item</li>
+                    <li class="danger">Risky Item</li>
+                </ul>
+            </div>
+
+            <h2>Adding Context Menu within P tag</h2>
+            <p>Here is a context menu in a &lt;p&gt; <span class="context-menu" data-container-id="context-menu-items"></span></p>
+
+            <div class="context-menu" data-container-id="context-menu-items" data-row-id="1">
+                <p>HOLA MUNEDO</p>
+            </div>
+
+            @*<div class="container">
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <th>&nbsp;</th>
+                </tr>
+                <tr>
+                    <td>Item 1</td>
+                    <td>Item 2</td>
+                    <td class="context-menu" data-container-id="context-menu-items" data-row-id="1"></td>
+                </tr>
+                <tr>
+                    <td>Item 3</td>
+                    <td>Item 4 </td>
+                    <td class="context-menu" data-container-id="context-menu-items" data-row-id="2"></td>
+                </tr>
+            </table>
+
+            <h2>Add context menu to a heading text</h2>
+            <h3 class="context-menu" data-container-id="context-menu-items">Here is an h3 with a context menu</h3>
+        </div>*@
+
+            <div class="text-center m-t-lg">
+                <div id="chart"></div>
+            </div>
+
+            <div id="dialog" style="display: none">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="~/js/context-menu.js?v=1.0.0.1"></script>
+
+    @*LIBRERIAS PARA ORGCHART*@
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    @*SCRIPTS PARA MENU CONTEXTUAL*@
+    <script>
+        var tableContextMenu = null;
+
+        $(document).ready(function () {
+            var options = {
+                openCallBack: function (contextMenu) {
+                    contextMenu.disableMenuItem("Warning Item");
+                }
+            };
+            tableContextMenu = new ContextMenu("context-menu-items", menuItemClickListener);
+            tableContextMenu.disableMenuItem(1);
+        });
+
+        function menuItemClickListener(menu_item, parent) {
+            if (menu_item.text() === "Re-enable item 2") {
+                tableContextMenu.enableMenuItem("Item 2");
+                //As we can't enable item 2 again, then why not disable the menu item to re-enable
+                tableContextMenu.disableMenuItem(3);
+            }
+            else {
+                alert("Menu Item Clicked: " + menu_item.text() + "\nRecord ID: " + parent.attr("data-row-id"));
+            }
+        }
+    </script>
+
+    @*ORGANIGRAMA CHART*@
+<script type="text/javascript">
+
+        google.load("visualization", "1", { packages: ["orgchart"] });
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                type: "POST",
+                url: "/Organigrama/AjaxMethod",
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Entity');
+                    data.addColumn('string', 'ParentEntity');
+                    data.addColumn('string', 'ToolTip');
+
+                    for (var i = 0; i < r.length; i++) {
+                        var employeeId = r[i][0].toString();
+                        var employeeName = r[i][1];
+                        var designation = r[i][2];
+                        var reportingManager = r[i][3] != null ? r[i][3].toString() : '';
+
+                        data.addRows(
+                            [
+                                [
+                                    {
+                                        v: employeeId,
+                                        f: '<div class="context-menu" data-container-id="context-menu-items" data-row-id="100"><img src = "/images/personCard.png" width=50 height=50 /></div><div><span>' + designation + '</span></div><div><a href="/Organigrama/AgregarPlaza/' + employeeId + '">AGREGAR</a></div><div><a href="/Organigrama/ModificarPlaza/' + employeeId + '">MODIFICAR</a></div><div><a href="/Organigrama/BorrarPlaza/' + employeeId + '">BORRAR</a></div><div><a href="/Organigrama/ConsultarPlaza/' + employeeId + '">CONSULTAR</a></div>'
+                                    },
+                                    reportingManager,
+                                    designation,
+                                ]
+                            ]
+                        );
+                    };
+
+                    //for (var i = 0; i < r.length; i++) {
+                    //    data.setRowProperty(i, 'style', 'width:100px');
+                    //}
+
+                    /*data.setRowProperty(3, 'style', 'border: 10px solid green');*/
+                    //data.setRowProperty(3, 'style', 'width:100px');
+                    //data.setRowProperty(3, 'style', 'width:100px');
+
+                    var chart = new google.visualization.OrgChart($("#chart")[0]);
+
+                    /*google.visualization.events.addListener(chart, 'select', toggleDisplay);*/
+
+                    //google.visualization.events.addListener(chart, 'select', function () {
+                    //    location.href = 'http://www.google.com';
+                    //});
+
+
+
+                    chart.draw(data, { allowCollapse: true, allowHtml: true, nodeClass: 'classCard' });
+                    /*chart.draw(data, { allowHtml: true });*/
+
+
+
+                    //function toggleDisplay() {
+                    //    var selection = chart.getSelection();
+                    //    alert('hola mundo');
+                    //    console.log(selection[0]);
+
+                    //    var selection = chart.getSelection();
+                    //    var row;
+                    //    if (selection.length == 0) {
+                    //        row = previous;
+                    //    }
+                    //    else {
+                    //        row = selection[0].row;
+                    //        previous = row;
+                    //    }
+                    //    var collapsed = chart.getCollapsedNodes();
+                    //    var collapse = (collapsed.indexOf(row) == -1);
+                    //    chart.collapse(row, collapse);
+                    //    chart.setSelection([{ row: row, column: null }]);
+                    //}
+
+                },
+                failure: function (r) {
+                    alert(r);
+                },
+                error: function (r) {
+                    alert(r);
+                }
+            });
+
+        }
+
+</script>
+}
+
+
+
+
+

@@ -1,0 +1,207 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .dropzone {
+        min-height: 140px;
+        border: 1px dashed #1ab394;
+        background: white;
+        padding: 20px 20px;
+    }
+
+        .dropzone .dz-message {
+            font-size: 16px;
+        }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Nómina</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Consulta de Nómina
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form onsubmit="FiltrarDatos(event)" id="frmFiltroEmpleados">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectCompaniaFiltro">Compañia</label>
+                            <select class="form-control form-control-md" id="selectCompaniaFiltro" name="selectCompaniaFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectTpNominaFiltro">Tipo de nómina </label>
+                            <select class="form-control form-control-md" id="selectTpNominaFiltro" name="selectTpNominaFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectEstatusFiltro">Estatus</label>
+                            <select class="form-control form-control-md" id="selectEstatusFiltro" name="selectEstatusFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                                <option value="A">Abierta</option>
+                                <option value="C">Cerrada</option>
+                                <option value="1">Calculando</option>
+                                <option value="5">Aprobada</option>
+                                <option value="8">Cerrando</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtFInical">Fecha inicial</label>
+                            <input type="date" class="form-control" id="txtFInical" name="txtFInical" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtFFinal">Fecha final</label>
+                            <input type="date" class="form-control" id="txtFFinal" name="txtFFinal" />
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label for="txtAno">Año</label>
+                            <input type="text" class="form-control" id="txtAno" name="txtAno" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="txtNumeroNomina">Número de Nomina</label>
+                            <input type="text" class="form-control" id="txtNumeroNomina" name="txtNumeroNomina" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="txtUnidades">Unidades</label>
+                            <input type="text" class="form-control" id="txtUnidades" name="txtUnidades" />
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label for="txtImporte">Importe</label>
+                            <input type="text" class="form-control" id="txtImporte" name="txtImporte" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtNombre">Nombre</label>
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectEstatusEmpleadoFiltro">Estatus Empleado</label>
+                            <select class="form-control form-control-md" id="selectEstatusEmpleadoFiltro" name="selectEstatusEmpleadoFiltro">
+                                <option selected value="" disabled> --Seleccione--</option>
+                                <option value="A">Activo</option>
+                                <option value="B">Baja</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectTipoBusqueda">Tipo de Búsqueda</label>
+                            <select class="form-control form-control-md" id="selectTipoBusqueda" name="selectTipoBusqueda">
+                                <option selected value="" disabled> --Seleccione--</option>
+                                <option value="1">Nomina</option>
+                                <option value="2">Empleado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button class="btn btn-info btn-outline" onclick="frmFiltrosNomina(); return false;" type="button">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success" onclick="OpenModal()" type="button"><i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">Cargar Excel</span></button>
+        </div>
+    </div>
+    <partial name="_EmpleadoNomina.cshtml" />
+    <partial name="_Nomina.cshtml" />
+</div>
+<div class="modal " id="mdlUploadExcel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <h4 class="modal-title">Cargar Excepciones Excel</h4>
+                <button type="button" onclick="cancelar()" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="dropzoneForm">>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="selectCompaniaExcel">Compañia</label>
+                                <select class="form-control form-control-md" id="selectCompaniaExcel" name="selectCompaniaExcel">
+                                    <option selected value="" disabled> --Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="selectTpNominaExcel">Tipo de nómina </label>
+                                <select class="form-control form-control-md" id="selectTpNominaExcel" name="selectTpNominaExcel">
+                                    <option selected value="" disabled> --Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtAnoExcel">Año</label>
+                                <input type="text" class="form-control" maxlength="4" id="txtAnoExcel" name="txtAnoExcel" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="txtNumeroNominaExcel">No.Nomina</label>
+                                <input type="text" class="form-control" id="txtNumeroNominaExcel" name="txtNumeroNominaExcel" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropzone" >
+                        <div class="fallback ">
+                            <input name="file" type="file" id="file" multiple />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-outline" onclick="UploadFiles(); return false;" type="button">Cargar</button>
+                <button onclick="cancelar(this)" type="button" class="btn btn-warning btn-outline" data-dismiss="modal" id="btnCancelarUpload">Canclear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+@*<link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">*@
+<script src="~/js/Nomina/Index.js"></script>
+@*<script src="js/plugins/dropzone/dropzone.js"></script>*@
+}

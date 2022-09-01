@@ -1,0 +1,298 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Organigrama";
+    //Layout = "~/Views/OrganigramaLayout.cshtml";
+    var org = ViewBag.organigrama;
+    var size = ViewBag.sizeOrganigrama;
+    var rh = ViewBag.RH;
+    var edicion = ViewBag.OrganigramaEdicion == null ? 0 : ViewBag.OrganigramaEdicion;
+    var urlOrganigramaIndex = @Url.Action("Index", "Organigrama");
+    var urlPlazaGrupal = @Url.Action("PlazaGrupal", "Organigrama");
+    int posIndex = urlOrganigramaIndex.IndexOf("Index");
+    int mostrarSueldo = 0;
+    const string SessionSueldos = "PermisoSueldos";
+    //mostrarSueldo = ViewBag.mostrarSueldo == null ? int.Parse(Context.Session.GetString(SessionSueldos)) : ViewBag.mostrarSueldo;
+    mostrarSueldo = ViewBag.mostrarSueldo == null ? 0 : ViewBag.mostrarSueldo;
+    if (posIndex > 0)
+    {
+        urlOrganigramaIndex = urlOrganigramaIndex.Substring(0, posIndex + 5);
+    }
+    else
+    {
+        urlOrganigramaIndex = String.Concat(urlOrganigramaIndex, "/Index");
+    }
+    String checkSi = mostrarSueldo == 1 ? "checked" : "";
+    String checkNo = mostrarSueldo != 1 ? "checked" : "";
+    var urlPlazaIndex = @Url.Action("Index", "CreacionPlaza");
+    var urlReemplazo = @Url.Action("Reemplazo", "CreacionPlaza");
+    var urlDetalleIndex = @Url.Action("Index", "Detalle");
+    var urlRequisicionCreate = @Url.Action("Create", "Requisiciones");
+    var urlExportPDF = Url.Action("OrganigramaFromImg", "Organigrama");
+}
+<link href="~/css/popupClass.css" rel="stylesheet" />
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="~/Libraries/assets/js/domToImage.js"></script>
+
+@*CODIGO DE PRUEBA*@
+<script type="text/javascript">
+    google.charts.load('current', { packages: ["orgchart"] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+
+        // For each orgchart box, provide the name, manager, and tooltip to show.
+        data.addRows([
+            [{ 'v': 'Mike', 'f': 'Mike<div style="color:red; font-style:italic">President</div>' },
+                '', 'The President'],
+            [{ 'v': 'Jim', 'f': 'Jim<div style="color:red; font-style:italic">Vice President</div>' },
+                'Mike', 'VP'],
+            ['Alice', 'Mike', ''],
+            ['Bob', 'Jim', 'Bob Sponge'],
+            ['Carol', 'Bob', '']
+        ]);
+
+        // Create the chart.
+        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+        // Draw the chart, setting the allowHtml option to true for the tooltips.
+        chart.draw(data, { 'allowHtml': true });
+    }
+</script>
+
+<style>
+
+    body {
+        background: white;
+    }
+
+    /*.main-div.overflow {
+        overflow-y: visible;
+        overflow-x: visible;
+    }*/
+
+    .main-div.inn {
+        zoom: 60%;
+        padding: 48px;
+    }
+
+    .styleNode {
+        min-width: 400px;
+        border: 1px solid #aaa;
+        padding: 6px;
+        -webkit-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.35);
+    }
+
+        .styleNode table {
+            font-size: 15px;
+            margin: 17px 14px;
+            width: 100%;
+        }
+
+            .styleNode table .td_h {
+                text-align: left;
+                font-size: 14px;
+                max-width: 21px;
+            }
+
+        .styleNode img {
+            width: 70px;
+            border-radius: 50%;
+        }
+
+        .styleNode .aux {
+            display: none;
+        }
+
+        .styleNode img.top {
+            width: 120px;
+        }
+
+        .styleNode h3 {
+            font-size: 14px;
+        }
+
+        .styleNode.more {
+        }
+
+            .styleNode.more.act {
+                display: none;
+            }
+
+    .google-visualization-orgchart-linenode {
+        border-color: #FF5A00 !important;
+        border-left-width: 4px !important;
+        border-right-width: 4px !important;
+        border-bottom-width: 3px !important;
+    }
+
+    .google-visualization-orgchart-lineleft,
+    .google-visualization-orgchart-lineright {
+        padding: 7px 2px;
+    }
+
+    .google-visualization-orgchart-linenode,
+    .myNodeClas {
+        background-color: transparent;
+    }
+
+    google-visualization-orgchart-table > * {
+        background-color: transparent;
+    }
+
+    .options {
+        position: absolute;
+        z-index: 100;
+        background-color: #fff;
+        border: 1px solid #a0a0a0;
+        border-radius: 10px;
+        padding: 15px 14px;
+        font-size: 17px;
+    }
+
+    .callButton {
+        margin-top: 0px;
+        width: 260px;
+    }
+
+    .selectButton,
+    .exportButton {
+        width: 260px !important;
+    }
+
+    .exportButton {
+        margin-top: 10px;
+        color: #FF5A00;
+        background: white;
+    }
+
+    .options form {
+        display: inline;
+    }
+
+        .options form select {
+            width: 100%;
+            margin-top: 7px;
+            margin-bottom: 15px;
+        }
+</style>
+<!-- / JAVASCRIPT -->
+<script src="~/js/Organigramas/Organigrama.js" asp-append-version="true"></script>
+
+@*<script>
+    $(document).ready(function () {
+        sizeOrganigrama = parseInt("@size");
+        organigrama = '@Html.Raw(org)';
+        urlDetalleIndex="@urlDetalleIndex";
+        urlOrganigramaIndex = "@urlOrganigramaIndex";
+        urlRequisicionCreate = "@urlRequisicionCreate";
+        urlPlazaIndex = "@urlPlazaIndex";
+        urlReemplazo = "@urlReemplazo";
+        urlExportPDF = "@urlExportPDF";
+        urlPlazaGrupal = "@urlPlazaGrupal";
+        empleadoActual = "0"
+        tipoUsuario = "@rh";
+        mostrarSueldos=@mostrarSueldo;
+        edus=@edicion;
+        google.charts.load('current', { packages: ["orgchart"] });
+        google.charts.setOnLoadCallback(drawChart);
+    });
+</script>*@
+
+<div class="container main-div">
+    <div class="row h-85 main-div">
+        <div class="col main-div inn">
+            <div class="options">
+                <div class="row">
+                    <div class="col-12">
+                        @using (Html.BeginForm("BusquedaSimple", "Organigrama", FormMethod.Post, new { id = "level-form", style = "margin-bottom: 0px" }))
+                        {
+                            @*@Html.HiddenFor(m => m.Id, new { @class = "form-control", placeholder = "Buscar por número de empleado", value = "@ViewBag.IdPadre" })*@
+                            <input type="hidden" value="@edicion" name="pvarupd" id="HFpvarupd" />
+                            @if (edicion == 1)
+                            {
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span>Nivel de Visualización</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        @*@Html.DropDownListFor(m => m.Nivel, new List<SelectListItem>
+                        {  new SelectListItem{Text="1", Value="1"},
+                           new SelectListItem{Text="2", Value="2"}
+                        }, "Elija un nivel", new { @class = "form-control selectButton", name = "Nivel", onchange = "onChangeLevel()" })*@
+
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @*<input type="hidden" value="@Model.Nivel" name="Nivel" id="HFNivel" />*@
+                                <input type="hidden" value="0" name="Nivel" id="HFNivel" />
+                            }
+
+                            @*@if (int.Parse(Context.Session.GetString(SessionSueldos)) == 1)
+                            {
+                                <div class="row text-center">
+                                    <span class="col-12">Mostrar Sueldos</span>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-12">
+                                        <input type="radio" id="SI" name="pVisualizarSueldos" value="1" @checkSi onchange="onChangeLevel()">
+                                        <label for="SI">Si</label>
+                                        <input type="radio" id="NO" name="pVisualizarSueldos" value="0" @checkNo onchange="onChangeLevel()">
+                                        <label for="NO">No</label>
+                                    </div>
+                                </div>
+                            }*@
+                        }
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12">
+                        @using (Html.BeginForm("PDFOrganigrama1N", "Organigrama", FormMethod.Post, new { id = "pdfprint-form", style = "margin-bottom: 0px" }))
+                        {
+                            <div class="row">
+                                <button type="submit" id="pdfButton1N" class="callButton btn scrollbar fontColor">PDF 1 Nivel</button>
+                            </div>
+                            @*<br />
+            <div class="row">
+                <button type="button" id="pdfButton" onClick="exportPdf()" class="callButton btn scrollbar fontColor">Exportar a PDF</button>
+            </div>*@
+                            @*<input type="hidden" name="IdEmpleado" id="IdEmpleado" value="@Model.Id" />*@
+                            <input type="hidden" name="IdEmpleado" id="IdEmpleado" value="0" />
+                            <input type="hidden" name="imgPDF" id="imgPDF" value="" />
+                            <input type="hidden" name="mostrarSueldos" id="hfmostrarSueldos" value="@mostrarSueldo" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="chart_div" style="max-width: 1280px">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalGrupal" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Plaza Grupal</h3>
+                </div>
+                <div class="modal-body" id="Plaza_Empleados">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

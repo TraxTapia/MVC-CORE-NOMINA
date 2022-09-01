@@ -1,0 +1,154 @@
+﻿<style>
+    .container {
+        /*background: gray; */
+        min-height: 100vh;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="frmFiniquito" class="frmNew">
+                <div class="row mt-3" id="secButtons">
+                    <div class="col-md-4" id="buttonsNuevo">
+                        <button type="button" onclick="AgregarNuevoFiniquito(this)" class="btn btn-primary" id="Nuevo">Nuevo</button>
+                        <button type="button" class="btn btn-primary disabled" id="calcular">Calcular</button>
+                        <button type="button" class="btn btn-danger disabled" id="AprobarNom">Aprobar/Nom</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtEmpleado">Empleado</label>
+                            <input type="text" class="form-control" id="txtEmpleado" placeholder="Empleado" name="txtEmpleado" disabled />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtFFiniquito">Fecha Finiquito</label>
+                            <input type="text" class="form-control" id="txtFFiniquito" name="txtFFiniquito" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtCompania">Compañia</label>
+                            <select class="form-control form-control-md" id="txtCompania" name="txtCompania" disabled>
+                                <option selected disabled>--Selecciona--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtTNomina">Tipo Nomina</label>
+                            <select class="form-control form-control-md" id="txtTNomina" name="txtTNomina">
+                                <option selected disabled>--Selecciona--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtLocalidad">Localidad</label>
+                            <select class="form-control form-control-md" id="txtLocalidad" name="txtLocalidad" disabled>
+                                <option selected disabled>--Selecciona--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtSimulacion">Simulacion</label>
+                            <input type="text" class="form-control" id="txtSimulacion" placeholder="Simulación" name="txtSimulacion" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtEstatus">Estatus</label>
+                            <select class="form-control form-control-md" id="txtEstatus" disabled>
+                                <option selected disabled>--Selecciona--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtPSimulacion">% Simulación</label>
+                            <input type="text" class="form-control" id="txtPSimulacion" placeholder="% Simulación" name="txtPSimulacion" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtTContrato">Tipo Contrato</label>
+                            <select class="form-control form-control-md" id="txtTContrato" name="txtTContrato" disabled>
+                                <option selected disabled>--Selecciona--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtIntIndem">Sue/Integ Indem</label>
+                            <input type="text" class="form-control" id="txtIntIndem" placeholder="$0.00" name="txtIntIndem" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtIReservado">Importe Reservado</label>
+                            <input type="text" class="form-control" id="txtIReservado" placeholder="$0.00" name="txtIReservado" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtNLlegar">Neto a llegar</label>
+                            <input type="text" class="form-control" id="txtNLlegar" placeholder="$0.00" name="txtNLlegar" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtFAntiguedad">Fecha Antiguedad</label>
+                            <input type="txt" class="form-control" id="txtFAntiguedad" placeholder="$0.00" name="txtFAntiguedad" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtSueldoM">Sueldo M</label>
+                            <input type="text" class="form-control" id="txtSueldoM" placeholder="$0.00" name="txtSueldoM" disabled />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="txtSueldoD">Sueldo D</label>
+                            <input type="text" class="form-control" id="txtSueldoD" placeholder="$0.00" name="txtSueldoD" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table id="tblNuevoRegistro" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts {
+
+<script src="~/js/Finiquito/Index.js"></script>
+
+}

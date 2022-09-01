@@ -1,0 +1,139 @@
+﻿@model Aplics.Nominix.DTOS.dto_Plazas
+
+<div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Nomina</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Agregar Plaza
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row mt-3">
+                  <div class="col-md-12">
+
+                    @using (Html.BeginForm("AgregarPlaza", "Organigrama", FormMethod.Post, new { @id = "form1" }))
+                    { 
+                      <div class="card">
+                          <div class="card-header">
+                              <h4 class="text-center">Datos de la Plaza Superior</h4>
+                          </div>
+
+                          @Html.AntiForgeryToken()
+
+                          <div class="card-body">
+                              <div class="container">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <p>Plaza: <b>@Model.CodigoSup</b></p>
+                                          <p>Compañia:<b>@Model.CompañiaSup</b></p>
+                                          <p>Localidad:<b>@Model.LocalidadSup</b></p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <p>Direccion: <b>@Model.DireccionSup</b></p>
+                                          <p>Departamento: <b>@Model.DepartamentoSup</b></p>
+                                          <p>Puesto: <b>@Model.PuestoSup</b></p>
+                                          <p>Externo Sup: <b>@Model.ExternoSup</b></p>
+                                      </div>
+                                  </div>
+                                  <div class="row d-flex justify-content-end align-items-center">
+                                      <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i>Agregar Plaza</button>
+                                      @*<button type="submit" class="bx bx-save"><span>GUARDAR</span></button>*@
+                                      @*<span><i class="bx bx-save"></i>HOLA MUNDO</span>*@
+                                  </div>
+
+                                  <div class="card-header">
+                                      <h4 class="text-center">Plaza Nueva</h4>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Plaza</label>
+                                      @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", id = "exampleInputEmail1" } })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleFormControlSelect1">Compañia</label>
+                                      @Html.DropDownList("compañia", (IEnumerable<SelectListItem>)ViewBag.comboCias, htmlAttributes: new { @class = "form-control form-control-lg", @id = "inputCia" })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleFormControlSelect1">Localidad</label>
+                                      @Html.DropDownList("localidad", (IEnumerable<SelectListItem>)ViewBag.comboLocalidad, htmlAttributes: new { @class = "form-control form-control-lg", @id = "inputLoc" })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleFormControlSelect1">Direccion</label>
+                                      @Html.DropDownList("direccion", (IEnumerable<SelectListItem>)ViewBag.comboDireccion, htmlAttributes: new { @class = "form-control form-control-lg", @id = "inputDir" })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleFormControlSelect1">Departamento</label>
+                                      @Html.DropDownList("departamento", (IEnumerable<SelectListItem>)ViewBag.comboDepartamento, htmlAttributes: new { @class = "form-control form-control-lg", @id = "inputDepto" })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleFormControlSelect1">Puesto</label>
+                                      @Html.DropDownList("puesto", (IEnumerable<SelectListItem>)ViewBag.comboPuesto, htmlAttributes: new { @class = "form-control form-control-lg", @id = "inputPue" })
+                                  </div>
+
+                                  <div class="card-header">
+                                      <h4 class="text-center">Configuracion Plaza</h4>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Autorizadas</label>
+                                      @Html.EditorFor(model => model.Autorizadas, new { htmlAttributes = new { @class = "form-control", id = "inputAutorizadas" } })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Ocupadas</label>
+                                      @Html.EditorFor(model => model.Ocupadas, new { htmlAttributes = new { @class = "form-control", id = "inputAutorizadas" } })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Eventuales Autorizadas</label>
+                                      @Html.EditorFor(model => model.EventualesAutorizadas, new { htmlAttributes = new { @class = "form-control", id = "inputAutorizadas" } })
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail1">Eventuales Ocupadas</label>
+                                      @Html.EditorFor(model => model.EventualesOcupadas, new { htmlAttributes = new { @class = "form-control", id = "inputAutorizadas" } })
+                                  </div>
+
+                                  <div class="form-group">
+                                      @Html.EditorFor(model => model.Externo, new { htmlAttributes = new { @class = "form-control", id = "inputAutorizadas" } })
+                                  </div>
+
+                                  @*<div class="card-header">
+                                      <h4 class="text-center">Empleados</h4>
+                                  </div>
+
+                                  @Html.Partial("_EmpleadosPlazas", Model.Empleados)*@
+                                  
+
+                                  @*<div class="form-group">
+            <div class="col-md-4">
+                <p><b>Cesar Platon Hohlatcheff Avila</b></p>
+            </div>
+        </div>*@
+
+
+                              </div>
+                          </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

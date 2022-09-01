@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Aplics.Nominix.DTOS.dto_PlazasEmpleados>
+
+<div class="ibox-content" style="">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelitem => item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ApellidoPaterno)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
